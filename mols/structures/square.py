@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 class Square:
     def __init__(self, size):
         """Inits a 0-filled square of given size.
@@ -72,3 +74,19 @@ class Square:
                 return False
 
         return True
+
+    def multiply(self, square) -> Square:
+        """Returns the matrix product between this square and the given one"""
+        if square.size != self.size:
+            raise ValueError("Square sizes not matching!")
+        res = Square(self.size)
+        for i in range(self.size):
+            for j in range(self.size):
+                val = 0
+                for k in range(self.size):
+                    val += self.get(i,k) * square.get(k,j)
+                res.set(i,j,val)
+        return res
+
+    def __eq__(self, other) -> bool:
+        return self.data == other.data
